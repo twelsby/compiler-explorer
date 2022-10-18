@@ -1,6 +1,6 @@
-FROM madduci/docker-linux-cpp:latest
+FROM twelsby/docker-linux-dev:latest
 
-LABEL maintainer="Michele Adduci <adduci@tutanota.com>" \
+LABEL maintainer="Trevor Welsby" \
       license="Copyright (c) 2012-2022, Matt Godbolt"
 
 EXPOSE 10240

@@ -25,6 +25,7 @@ RUN echo "*** Installing Compiler Explorer ***" \
     && npm run webpack
 
 ADD cpp.properties /compiler-explorer/etc/config/c++.local.properties
+ADD rust.properties /compiler-explorer/etc/config/rust.local.properties
 
 WORKDIR /compiler-explorer
 

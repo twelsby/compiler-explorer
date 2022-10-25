@@ -6,23 +6,8 @@ LABEL maintainer="Trevor Welsby" \
 EXPOSE 10240
 
 RUN echo "*** Installing Compiler Explorer ***" \
-    && DEBIAN_FRONTEND=noninteractive apt-get update \
-    && apt-get install -y curl \
-    && curl -sL https://deb.nodesource.com/setup_16.x | bash - \
-    && apt-get install -y \
-        wget \
-        ca-certificates \
-        nodejs \
-        make \
-        git \
-    && apt-get autoremove --purge -y \
-    && apt-get autoclean -y \
-    && rm -rf /var/cache/apt/* /tmp/* \
     && git clone https://github.com/compiler-explorer/compiler-explorer.git /compiler-explorer \
-    && cd /compiler-explorer \
-    && echo "Add missing dependencies" \
-    && npm i @sentry/node \
-    && npm run webpack
+    && cd /compiler-explorer
 
 ADD cpp.properties /compiler-explorer/etc/config/c++.local.properties
 ADD rust.properties /compiler-explorer/etc/config/rust.local.properties

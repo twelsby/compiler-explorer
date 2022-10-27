@@ -9,6 +9,7 @@ RUN echo "*** Installing Compiler Explorer ***" \
     && git clone https://github.com/compiler-explorer/compiler-explorer.git /compiler-explorer \
     && cd /compiler-explorer
 
+ADD llvm-tool.ts /compiler-explorer/lib/tooling/llvm-tool.ts
 ADD cpp.properties /compiler-explorer/etc/config/c++.local.properties
 ADD rust.properties /compiler-explorer/etc/config/rust.local.properties
 

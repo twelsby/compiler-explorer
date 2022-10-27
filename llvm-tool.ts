@@ -25,7 +25,7 @@ export class LLVMTool extends BaseTool {
         try {
             const cresult = await this.exec('/usr/bin/clang-11', clangargs, execOptions);
             const transformedFilepath = inputFilepath ? cresult.filenameTransform(inputFilepath) : undefined;
-            execOptions.input = this.parseOutput(cresult.stdout, transformedFilepath, /usr/bin/');
+            execOptions.input = this.parseOutput(cresult.stdout, transformedFilepath, '/usr/bin/');
             const result = await this.exec(this.tool.exe, args, execOptions);
             return this.convertResult(result);
         } catch (e) {

@@ -12,8 +12,8 @@ export class LLVMTool extends BaseTool {
 
     override async runTool(
         compilationInfo: Record<any, any>,
-        inputFilepath?: string,
-        args?: string[],
+        inputFilepath: string,
+        args: string[],
         stdin: string,
     ) {
         const execOptions = this.getDefaultExecOptions();

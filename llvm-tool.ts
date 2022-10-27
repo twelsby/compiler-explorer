@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs-extra';
 
 import {BaseTool} from './base-tool';
+import {logger} from '../logger';
 
 export class LLVMTool extends BaseTool {
     static get key() {

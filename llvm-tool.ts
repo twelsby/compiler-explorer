@@ -22,7 +22,8 @@ export class LLVMTool extends BaseTool {
         args = ['-S', '-emit-llvm', '-x', 'c++', '-o /dev/stdout', '|', this.tool.exe, '-o /dev/stdout'].concat(args);
 
         try {
-            return await this.exec('/usr/bin/clang-11', args, execOptions);
+            const result = await this.exec('/usr/bin/clang-11', args, execOptions);
+            return this.convertResult(result);
         } catch (e) {
             logger.error('Error while running tool: ', e);
             return this.createErrorResponse('Error while running tool');

@@ -4,9 +4,9 @@ import fs from 'fs-extra';
 
 import {BaseTool} from './base-tool';
 
-export class ClangQueryTool extends BaseTool {
+export class LLVMTool extends BaseTool {
     static get key() {
-        return 'clang-query-tool';
+        return 'llvm-tool';
     }
 
     constructor(toolInfo, env) {
@@ -15,29 +15,36 @@ export class ClangQueryTool extends BaseTool {
         this.addOptionsToToolArgs = false;
     }
 
-    async runTool(compilationInfo, inputFilepath, args, stdin) {
-        const sourcefile = inputFilepath;
-        const compilerExe = compilationInfo.compiler.exe;
-        const options = compilationInfo.options;
-        const dir = path.dirname(sourcefile);
-
-        const compileFlags = options.filter(option => option !== sourcefile);
-        if (!compilerExe.includes('clang++')) {
-            compileFlags.push(this.tool.options);
+    async runTool(
+        compilationInfo: Record<any, any>,
+        inputFilepath?: string,
+        args?: string[],
+        stdin?: string,
+        supportedLibraries?: Record<string, Library>,
+    ) {
+        if (this.tool.name) {
+            toolCounter.inc({
+                language: compilationInfo.compiler.lang,
+                name: this.tool.name,
+            });
         }
+        const execOptions = this.getDefaultExecOptions();
+        if (inputFilepath) execOpt
+        ions.customCwd = path.dirname(inputFilepath);
+        execOptions.input = stdin;
 
-        const query_commands_file = this.getUniqueFilePrefix() + 'query_commands.txt';
+        args = ['-S', '-emit-llvm', inputFilePath, '-o /dev/stdout', '|', this.tool.exe, '-o /dev/stdout'].contat(args);
+        if (this.addOptionsToToolArgs) args = this.tool.options.concat(args);
+        if (inputFilepath) args.push(inputFilepath);
 
-        await fs.writeFile(path.join(dir, 'compile_flags.txt'), compileFlags.join('\n'));
-        await fs.writeFile(path.join(dir, query_commands_file), stdin);
-        args.push('-f', query_commands_file);
-        const toolResult = await super.runTool(compilationInfo, sourcefile, args);
+        const exeDir = path.dirname(this.tool.exe);
 
-        if (toolResult.stdout.length > 0) {
-            const lastLine = toolResult.stdout.length - 1;
-            toolResult.stdout[lastLine].text = toolResult.stdout[lastLine].text.replace(/(clang-query>\s)/gi, '');
+        try {
+            const result = await this.exec('/usr/bin/clang-11', args, execOptions);
+            return this.convertResult(result, inputFilepath, exeDir);
+        } catch (e) {
+            logger.error('Error while running tool: ', e);
+            return this.createErrorResponse('Error while running tool');
         }
-
-        return toolResult;
     }
 }

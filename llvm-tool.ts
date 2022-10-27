@@ -34,7 +34,7 @@ export class LLVMTool extends BaseTool {
         ions.customCwd = path.dirname(inputFilepath);
         execOptions.input = stdin;
 
-        args = ['-S', '-emit-llvm', '-x', '-o /dev/stdout', '|', this.tool.exe, '-o /dev/stdout'].concat(args);
+        args = ['-S', '-emit-llvm', '-x', 'c++', '-o /dev/stdout', '|', this.tool.exe, '-o /dev/stdout'].concat(args);
         if (this.addOptionsToToolArgs) args = this.tool.options.concat(args);
         if (inputFilepath) args.push(inputFilepath);
 

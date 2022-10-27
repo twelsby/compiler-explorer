@@ -10,11 +10,11 @@ export class LLVMTool extends BaseTool {
         return 'llvm-tool';
     }
 
-    async runTool(
+    override async runTool(
         compilationInfo: Record<any, any>,
         inputFilepath?: string,
         args?: string[],
-        stdin?: string,
+        stdin: string,
     ) {
         const execOptions = this.getDefaultExecOptions();
         execOptions.input = stdin;

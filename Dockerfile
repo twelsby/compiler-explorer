@@ -7,7 +7,8 @@ EXPOSE 10240
 
 RUN echo "*** Installing Compiler Explorer ***" \
     && git clone https://github.com/compiler-explorer/compiler-explorer.git /compiler-explorer \
-    && cd /compiler-explorer
+    && cd /compiler-explorer \
+    && echo "export {LLVMTool} from './llvm-tool';" >> lib/tooling/_all.js
 
 ADD llvm-tool.ts /compiler-explorer/lib/tooling/llvm-tool.ts
 ADD cpp.properties /compiler-explorer/etc/config/c++.local.properties

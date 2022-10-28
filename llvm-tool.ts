@@ -17,10 +17,7 @@ export class LLVMTool extends BaseTool {
         stdin: string,
     ) {
         const execOptions = this.getDefaultExecOptions();
-        execOptions.input = stdin;
-
-        const clangargs = ['-S', '-emit-llvm', '-x', 'c++'];
-        args = ['-o', '/dev/stdout', '-'].concat(args);
+        const clangargs = ['-S', '-emit-llvm', '-o-', inputFilepath];
 
         try {
             const cresult = await this.exec('/usr/bin/clang-11', clangargs, execOptions);

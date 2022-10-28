@@ -19,7 +19,7 @@ export class LLVMTool extends BaseTool {
         const execOptions = this.getDefaultExecOptions();
         execOptions.input = stdin;
 
-        const clangargs = ['-S', '-emit-llvm', '-x', 'c++', '-o', '/dev/stdout', '-'];
+        const clangargs = ['-S', '-emit-llvm', '-x', 'c++'];
         args = ['-o', '/dev/stdout', '-'].concat(args);
 
         try {

@@ -14,6 +14,9 @@ ADD llvm-tool.ts /compiler-explorer/lib/tooling/llvm-tool.ts
 
 RUN echo "*** Building Compiler Explorer ***" \
     && cd /compiler-explorer \
+    && /usr/bin/npm install \
+    && rm -rf node_modules/.cache/esm/* \
+    && touch ./node_modules/.npm-updated \
     && /usr/bin/npm run webpack \
     && /usr/bin/npm run ts-compile
 

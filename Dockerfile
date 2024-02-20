@@ -21,6 +21,7 @@ RUN echo "*** Building Compiler Explorer ***" \
     && /usr/bin/npm run ts-compile
 
 ADD cpp.properties /compiler-explorer/etc/config/c++.local.properties
+ADD c.properties /compiler-explorer/etc/config/c.local.properties
 ADD rust.properties /compiler-explorer/etc/config/rust.local.properties
 
 WORKDIR /compiler-explorer

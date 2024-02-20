@@ -3,7 +3,6 @@ import path from 'path';
 import fs from 'fs-extra';
 
 import {BaseTool} from './base-tool.js';
-import {logger} from '../logger.js';
 
 export class LLVMTool extends BaseTool {
     static get key() {
@@ -25,7 +24,6 @@ export class LLVMTool extends BaseTool {
             const result = await this.exec(this.tool.exe, args, execOptions);
             return this.convertResult(result);
         } catch (e) {
-            logger.error('Error while running tool: ', e);
             return this.createErrorResponse('Error while running tool');
         }
     }

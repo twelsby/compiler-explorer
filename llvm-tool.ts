@@ -2,8 +2,8 @@ import path from 'path';
 
 import fs from 'fs-extra';
 
-import {BaseTool} from './base-tool';
-import {logger} from '../logger';
+import {BaseTool} from './base-tool.js';
+import {logger} from '../logger.js';
 
 export class LLVMTool extends BaseTool {
     static get key() {
